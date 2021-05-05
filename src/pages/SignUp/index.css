@@ -1,3 +1,6 @@
+.signup-container {
+    margin:5rem
+}
 .row {
     display: flex;
     height: 3em;
@@ -17,5 +20,7 @@ input {
 }
 
 .start {
+    height: 2em;
     width: 28em;
+    margin-top: 2em;
 }

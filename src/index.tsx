@@ -3,14 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ApolloProvider } from '@apollo/client';
 
-import { store, StoreProvider } from './stores'
+import { client } from './apollo'
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <StoreProvider store={store}>
+    <ApolloProvider client={client}>
       <App />
-    </StoreProvider>
+    </ApolloProvider>
     
   </React.StrictMode>,
   document.getElementById('root')

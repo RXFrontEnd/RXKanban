@@ -1,0 +1,155 @@
+
+  
+# ----------------------- IMPORTANT -------------------------------
+#
+#      The contents of this file are AUTOMATICALLY GENERATED.  Please do
+#      not edit this file directly.  To modify its contents, make
+#      changes to your schema, and re-run this command line.
+#
+# -----------------------------------------------------------------
+
+
+  schema {
+  query: Query
+  mutation: Mutations
+  subscription: Subscriptions
+}
+
+directive @authorization on FIELD_DEFINITION
+
+type AdminRole implements Role {
+  admin: Boolean!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Board {
+  name: String!
+  tickets: [Ticket!]!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input BoardInput {
+  __typename: String
+  name: String
+}
+
+scalar DateTime
+
+type Mutations {
+  createUser(user: UserInput!): User!
+  deleteBoard(organisationId: ID!, boardId: ID!): Boolean!
+  deleteTicket(organisationId: ID!, ticketId: ID!): Ticket!
+  putBoard(organisationId: ID!, boardId: ID, input: BoardInput!): Board!
+  createOrganisation(name: String!, timezone: Timezone!): Organisation!
+  putTicket(organisationId: ID!, boardId: ID!, ticketId: ID, input: TicketInput!): Ticket!
+  updateOrganisation(organisationId: ID!, organisationInput: OrganisationInput!): Organisation!
+}
+
+type Organisation {
+  name: String!
+  timezone: Timezone!
+  boards: [Board!]!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input OrganisationInput {
+  __typename: String
+  name: String
+  timezone: Timezone
+}
+
+type Query {
+  members(organisationId: ID!): [UserMembership!]!
+  board(organisationId: ID!, boardId: ID!): Board
+  roles(organisationId: ID!): [Role!]!
+  organisation(organisationId: ID!): Organisation
+  me: User!
+  ticket(organisationId: ID!, ticketId: ID!): Ticket
+}
+
+interface Role {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Subscriptions {
+  ticketUpdates(organisationId: ID!): Ticket!
+}
+
+type Ticket {
+  name: String!
+  visible: Boolean!
+  description: String!
+  status: TicketStatus!
+  board: Board!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input TicketInput {
+  __typename: String
+  name: String
+  description: String
+  visible: Boolean
+  status: TicketStatus
+}
+
+enum TicketStatus {
+  DONE
+  INPROGRESS
+  TODO
+}
+
+scalar Timezone
+
+type User {
+  membership: UserMembership!
+  email: String!
+  firstName: String!
+  lastName: String!
+  cognitoId: String!
+  groups: [UserGroup!]!
+  memberships: [UserMembership!]!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum UserGroup {
+  DEVELOPERS
+}
+
+input UserInput {
+  __typename: String
+  email: String!
+  firstName: String!
+  lastName: String!
+}
+
+type UserMembership {
+  id: ID!
+  user: User!
+  organisation: Organisation!
+  role: Role!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type UserRole implements Role {
+  admin: Boolean!
+  write: Boolean!
+  whitelistBoards: [Board!]!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+  
