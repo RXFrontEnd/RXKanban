@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { Mutations, MutationsCreateUserArgs } from '../../models/type';
 import { appStateVar } from '../../apollo/cache';
-import { AppState } from "../../models/AppState";
+import { AppState } from "../../models/locatType";
 
 const CREATE_USER = gql`
   mutation CreateUser($user: UserInput!) {

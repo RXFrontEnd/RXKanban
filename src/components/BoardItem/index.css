@@ -1,0 +1,11 @@
+.board-item-container {
+    display: flex;
+    flex-direction: column;
+    background: #cecece;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.board-item-name {
+    margin-bottom: 1em;
+}

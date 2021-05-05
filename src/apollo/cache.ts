@@ -2,8 +2,7 @@
  * Define Cache for all kinds of states
 */
 import { InMemoryCache, makeVar } from '@apollo/client';
-import { AppState } from '../models/AppState';
-
+import { AppState } from '../models/locatType';
 
 export const cache: InMemoryCache = new InMemoryCache({
     typePolicies: {
@@ -14,15 +13,16 @@ export const cache: InMemoryCache = new InMemoryCache({
                         return appStateVar();
                     }
                 }
+                
             }
         }
     }
 });
 
 export const appStateVar = makeVar<AppState>(
-        { 
-            isSignedUp: function(){ return !!this.userId && !! this.orgId}
-        } as AppState
-    );
+    { 
+        isSignedUp: function(){ return !!this.userId && !! this.orgId}
+    } as AppState
+);
 
 

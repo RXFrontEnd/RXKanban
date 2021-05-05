@@ -1,0 +1,42 @@
+.add-board-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 37.5vh;
+    border: 2px dashed black;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.add-board-plus {
+    display: block;
+    width: 100%;
+    height: 37.5vh;
+    line-height: 37.5vh;
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.add-board-name {
+    width: 80%;
+    height: 60%;
+    align-self: center;
+    resize: none;
+}
+
+.add-board-close {
+    align-self: flex-end;
+    padding: 2px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.add-board-submit {
+    width: 80%;
+    height: 2em;
+    align-self: center;
+    margin-bottom: 10px;
+}
