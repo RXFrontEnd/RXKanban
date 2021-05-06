@@ -3,7 +3,7 @@ import { cache, appStateVar } from './cache';
 
 const httpLink = new HttpLink(
     {
-      uri: 'https://14g8921io8.execute-api.us-east-1.amazonaws.com/ryan-dev-example-graphql-api'
+      uri: 'https://14g8921io8.execute-api.us-east-1.amazonaws.com/ryan-dev-ticket'
     }
   );
   const authLink = new ApolloLink((operation, forward) => {

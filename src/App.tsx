@@ -8,16 +8,29 @@ import { GET_APP_STATE } from './operations/queries/appState';
 import { LocalQueries } from './models/locatType';
 
 function App() {
-  const { loading, data} = useQuery<LocalQueries>(GET_APP_STATE);
+  const { loading, error, data} = useQuery<LocalQueries>(GET_APP_STATE);
+
+  let content = '';
+  let page = <SignUp />
+  if(loading){
+    content = 'Loading';
+  }else if(error){
+    content = 'Error, please restart your application';
+  }else{
+    if(data){
+      const {appState} = data;
+      console.log(appState)
+      if(appState.isSignedUp()) {
+        page = appState.currentBoardId ? <Ticket /> : <Board />;
+      }
+    }
+  }
+  
+  
   
   return (
     <div className="App">
-      {
-        loading ? 'loading' 
-        : data?.appState.isSignedUp() ? (data?.appState.currentBoardId ? <Ticket /> 
-        : <Board />)
-        : <SignUp />
-      }
+      { content || page }
     </div>
   );
   

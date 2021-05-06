@@ -1,6 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import { appStateVar } from "../../apollo/cache";
-import { Mutations, MutationsPutBoardArgs } from '../../models/type';
+import { Mutations, MutationsPutBoardArgs, Query } from '../../models/type';
 import { GET_ORGANISATION } from "../queries/getOrganisation";
 
 const PUT_BOARD = gql`
@@ -21,16 +21,54 @@ const PUT_BOARD = gql`
 `;
 
 export function usePutBoard(){
+    const appState = appStateVar();
     const [putBoard, {loading, error, data}] = useMutation<Mutations, MutationsPutBoardArgs>(
         PUT_BOARD,
         {
-            refetchQueries: [
+            update(cache, {data}){
+                const newBoard = data?.putBoard;
+                const currentOrganisation = cache.readQuery<Query['organisation']>(
+                  {
+                    query: GET_ORGANISATION,
+                    variables: {
+                      organisationId: appState.orgId,
+                    }
+                  }
+                );
+                
+                if(currentOrganisation && newBoard){
+                  let currentBoards = currentOrganisation.boards;
+                  if(!currentBoards){
+                    currentBoards = [];
+                  }
+                  cache.writeQuery({
+                    query: GET_ORGANISATION,
+                    variables: {
+                      organisationId: appState.orgId,
+                    },
+                    data:{
+                        organisation:{
+                        ...currentOrganisation,
+                        tickets: [
+                          ...currentBoards,
+                          newBoard
+                        ]
+                      }
+                    }
+                  });
+                }
+              }
+        }
+    );
+    return {putBoard, boardLoading: loading, boardData: data, boardError: error};
+}
+
+/**
+ * refetchQueries: [
               { 
                   query: GET_ORGANISATION,
                   variables: { organisationId: appStateVar().orgId }
                 }
             ]
-          }
-        );
-        return {putBoard, boardLoading: loading, boardData: data, boardError: error};
-}
+ * 
+ */

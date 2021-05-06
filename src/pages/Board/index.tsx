@@ -28,8 +28,7 @@ function BoardPage() {
                         <BoardItem 
                             key={board.id}
                             id={board.id}
-                            name={board.name} 
-                            ticketsCount={board.tickets ? board.tickets.length : 0} />
+                            name={board.name}  />
                     ))
                 }
                 <AddBoard />

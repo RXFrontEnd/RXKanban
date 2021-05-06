@@ -5,7 +5,6 @@ import './index.css';
 export type BoardItemProps = {
     id: string;
     name: string;
-    ticketsCount: number;
 }
 
 function BoardItem(props: BoardItemProps) {
@@ -21,7 +20,6 @@ function BoardItem(props: BoardItemProps) {
     return (
         <div className='board-item-container' onClick={handleClick}>
             <h2 className='board-item-name'>{props.name}</h2>
-            <span>{`${props.ticketsCount} tickets`}</span>
         </div>
     )
 }

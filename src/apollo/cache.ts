@@ -13,7 +13,6 @@ export const cache: InMemoryCache = new InMemoryCache({
                         return appStateVar();
                     }
                 }
-                
             }
         }
     }

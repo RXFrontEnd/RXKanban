@@ -1,0 +1,40 @@
+.ticket-item-container{
+    display: flex;
+    background-color: #fff;
+    margin: 10px 5px;
+    height: 2.5rem;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+}
+
+.ticket-item-text{
+    display: inline-block;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    height: 2.5rem;
+    padding: 2px;
+}
+
+.ticket-item-text-name {
+    flex: 1;
+    width: 0;
+}
+.ticket-item-text-description {
+    flex: 2;
+    width: 0;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.ticket-item-delete {
+    font-size: 1.5rem;
+    padding: 5px;
+    display: none;
+}
+
+.ticket-item-container:hover .ticket-item-delete {
+    display: block;
+ }

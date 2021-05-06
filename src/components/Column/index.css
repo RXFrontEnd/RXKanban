@@ -8,8 +8,19 @@
     box-sizing: border-box;
 }
 
+.column-header-container{
+    display: flex;
+    background: #66666699;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .column-title {
     padding: 20px 0;
-    background: #66666699;
     color: white;
+    flex:1;
+}
+
+.column-showall{
+    width: 20px;
 }

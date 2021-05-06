@@ -18,13 +18,12 @@ function SignUp() {
             }
         });
         if(userData.data){
-            const organisationData = await registerOrganisation({
+            await registerOrganisation({
                 variables:{
                     name: organisation,
                     timezone: 'Pacific/Auckland'
                 }
             });
-            console.log(organisationData)
         }
         
     }
