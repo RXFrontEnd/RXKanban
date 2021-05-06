@@ -38,8 +38,13 @@ export function useCreateUser(){
                 if(user){
                   appState.userId = user.id;
                   appState.userName = user.firstName.concat(user.lastName);
+                  appState.email = user.email;
+                  // save userId to localstorage
+                  localStorage.setItem(user.email, appState.userId);
                 }
                 appStateVar(appState);
+
+                
             }
         }
         );

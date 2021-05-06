@@ -32,6 +32,9 @@ export function useRegisterOrganisation(){
                   appState.orgName = org.name;
                 }
                 appStateVar(appState);
+                
+                // save userId to localstorage
+                localStorage.setItem(appState.email.concat(appState.orgName), appState.orgId);
             }
         }
       );

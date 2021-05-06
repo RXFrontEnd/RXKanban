@@ -5,6 +5,7 @@ export type AppState = {
     isSignedUp: () => boolean;
     userId: string;
     userName: string;
+    email: string;
     orgId: string;
     orgName: string;
     currentBoardId: string;

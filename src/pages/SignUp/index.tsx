@@ -4,6 +4,8 @@ import { useCreateUser } from '../../operations/mutations/createUser';
 import { useRegisterOrganisation } from '../../operations/mutations/registerOrganisation';
 import { UserInput } from '../../models/type';
 import Header from '../../components/Header'
+import { appStateVar } from '../../apollo/cache';
+import { AppState } from '../../models/locatType';
 
 function SignUp() {
     const [user, setUser] = useState<UserInput>({} as UserInput);
@@ -12,18 +14,42 @@ function SignUp() {
     const { registerOrganisation, organisationLoading, organisationError  } = useRegisterOrganisation();
 
     const handleClick = async () => {
-        const userData = await createUser({
-            variables: {
-                user
-            }
-        });
-        if(userData.data){
-            await registerOrganisation({
-                variables:{
-                    name: organisation,
-                    timezone: 'Pacific/Auckland'
+        let userData = null;
+        const id = localStorage.getItem(user.email);
+        debugger;
+        if(id){
+            const curState = appStateVar();
+            userData = appStateVar({
+                ...curState,
+                userId: id,
+                userName: user.firstName.concat(user.lastName)
+            } as AppState);
+        }else {
+            const result = await createUser({
+                variables: {
+                    user
                 }
             });
+            userData = result.data;
+        }
+        if(userData){
+            const curState = appStateVar();
+            const oId = localStorage.getItem(user.email.concat(organisation));
+            if(oId){
+                appStateVar({
+                    ...curState,
+                    orgId: oId,
+                    orgName: organisation
+                })
+            }else{
+                await registerOrganisation({
+                    variables:{
+                        name: organisation,
+                        timezone: 'Pacific/Auckland'
+                    }
+                });
+            }
+            
         }
         
     }
