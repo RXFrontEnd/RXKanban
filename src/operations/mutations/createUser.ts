@@ -34,17 +34,19 @@ export function useCreateUser(){
       CREATE_USER,
         {
             update( cache, { data }) {
-                const appState = {...appStateVar()} as AppState;
+                
                 const user = data?.createUser;
                 if(user){
+                  const appState = {...appStateVar()} as AppState;
                   appState.userId = user.id;
                   appState.userName = user.firstName.concat(user.lastName);
                   appState.email = user.email;
                   // save userId to localstorage
                   
                   localStorage.setItem(generateKey(user.email), appState.userId);
+                  appStateVar(appState);
                 }
-                appStateVar(appState);
+                
 
                 
             }
