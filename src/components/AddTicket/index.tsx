@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './index.css';
 import { Mutations, TicketInput } from '../../models/type';
 import { FetchResult } from '@apollo/client';
@@ -15,36 +15,45 @@ function AddTicket(props: AddTicketProps) {
         } as TicketInput
     );
 
+    const refName = useRef<HTMLInputElement>(null);
+    const refDescription = useRef<HTMLInputElement>(null);
+
     const handleClick = () => {
         // validation
         if(!handleAdd){
             return;
         }
         if(!ticket.name){
+            alert('name cannot empty');
             return;
         }
 
         handleAdd(ticket.name, ticket.description ? ticket.description : '');
+
+        // reset
+        refName.current && (refName.current.value = '');
+        refDescription.current && (refDescription.current.value = '');
+        setTicket({} as TicketInput);
     }
 
     return (
         <div className='add-ticket-container'>
             <input 
+                ref={refName}
                 className='add-ticket-name' 
                 placeholder='Name'
                 onChange={
                     (e: React.ChangeEvent<HTMLInputElement>) => {
-                        ticket.name = e.target.value;
-                        setTicket(ticket);
+                        setTicket({...ticket, name: e.target.value});
                     }
                 } />
-            <input 
+            <input
+                ref={refDescription}
                 className='add-ticket-description' 
                 placeholder='Description'
                 onChange={
                     (e: React.ChangeEvent<HTMLInputElement>) => {
-                        ticket.description = e.target.value;
-                        setTicket(ticket);
+                        setTicket({...ticket, description: e.target.value});
                     }
                 }  />
             <span className='add-ticket-submit' onClick={handleClick}>+</span>

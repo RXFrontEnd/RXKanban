@@ -1,6 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import { appStateVar } from "../../apollo/cache";
-import { Mutations, MutationsDeleteTicketArgs, MutationsPutTicketArgs } from '../../models/type';
+import { Mutations, MutationsDeleteTicketArgs } from '../../models/type';
 import { GET_BOARD } from "../queries/getBoard";
 
 const DELETE_TICKET = gql`

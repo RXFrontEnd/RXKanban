@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { usePutBoard } from '../../operations/mutations/putBoard';
 import './index.css';
-import { appStateVar } from '../../apollo/cache';
+import { FetchResult } from '@apollo/client';
+import { Mutations } from '../../models/type';
 
-function AddBoard() {
+export type AddBoardProps = {
+    handleSubmit: (name:string) => Promise<FetchResult<Mutations, Record<string, any>, Record<string, any>>>
+}
+
+function AddBoard(props: AddBoardProps) {
 
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [name, setName] = useState<string>('');
-
-    const { putBoard, boardLoading, boardData } = usePutBoard();
 
     const handleAdd = () => {
         setIsEdit(true);
@@ -18,15 +20,9 @@ function AddBoard() {
         setIsEdit(false);
     }
 
-    const handleSubmit = async () => {
-        const result = await putBoard({
-            variables: {
-                "organisationId": appStateVar().orgId,
-                "input": {
-                    "name": name
-                }  
-            }
-        })
+    const handleClickForSubmit = async () => {
+        const result = await props.handleSubmit(name);
+
         if(result.data){
             setIsEdit(false);
             setName('');
@@ -47,8 +43,8 @@ function AddBoard() {
                             setName(e.target.value);
                         }} 
                     />
-                    <button className='add-board-submit' onClick={handleSubmit}>
-                        {boardLoading ? 'Creating' : 'Submit'}
+                    <button className='add-board-submit' onClick={handleClickForSubmit}>
+                        Submit
                     </button>
                 </>
             ) 

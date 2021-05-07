@@ -38,7 +38,8 @@ function TicketItem(props: TicketItemProps) {
         setIsEdit(true);
     }
 
-    const handleClickForUpdate = async () => {
+    const handleClickForUpdate = async (event: React.MouseEvent) => {
+        event.stopPropagation();
         if(!handleUpdate){
             return;
         }

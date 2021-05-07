@@ -7,34 +7,53 @@ import { GET_ORGANISATION } from '../../operations/queries/getOrganisation';
 import AddBoard from '../../components/AddBoard';
 import './index.css'
 import { appStateVar } from '../../apollo/cache';
+import { usePutBoard } from '../../operations/mutations/putBoard';
 
 function BoardPage() {
     const appState = appStateVar();
-    const { loading, data: boardData} = useQuery<Query>(GET_ORGANISATION, {
+    const { loading, error, data: boardData} = useQuery<Query>(GET_ORGANISATION, {
         variables: {
             "organisationId": appState.orgId
         }
     });
+
+    const { putBoard, boardLoading, boardError } = usePutBoard();
+    const handleSubmit = (name: string) => putBoard({
+        variables: {
+            organisationId: appStateVar().orgId,
+            input: {
+                name: name
+            }  
+        }
+    });
+
+    if(boardError){
+        alert(boardError.message);
+    }
     
     return (
-        <>
+        <div className='board-frame'>
             <Header 
                 title={appState.orgName.concat(' - Board')} 
                 userName={appState.userName} />
-            {
-            loading ? 'loading boards data' : (<div className='board-container'>
+            <div className='board-container'>
                 {
-                    boardData?.organisation?.boards.map(board =>(
-                        <BoardItem 
-                            key={board.id}
-                            id={board.id}
-                            name={board.name}  />
-                    ))
+                    loading ? <div className='board-info'>Loading border data</div> : 
+                        error ? <div className='board-info'>{error.message}</div> :
+                        <>
+                            {boardData?.organisation?.boards.map(board =>(
+                                <BoardItem 
+                                    key={board.id}
+                                    id={board.id}
+                                    name={board.name}  />
+                            ))}
+                            <AddBoard handleSubmit={handleSubmit}/>
+                        </>
                 }
-                <AddBoard />
-            </div>)}
-            
-        </>
+                
+            </div>
+            {boardLoading ? <div className='board-waiting'>please waiting</div> : <></>}
+        </div>
     )
 };
 

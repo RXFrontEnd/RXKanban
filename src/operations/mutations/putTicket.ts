@@ -1,5 +1,4 @@
 import { gql, useMutation } from "@apollo/client";
-import { client } from "../../apollo";
 import { appStateVar } from "../../apollo/cache";
 import { Mutations, MutationsPutTicketArgs, Query } from '../../models/type';
 import { GET_BOARD } from "../queries/getBoard";
