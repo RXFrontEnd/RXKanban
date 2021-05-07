@@ -62,13 +62,18 @@ function Column(props: ColumnProps) {
                 <div>
                     <div className='column-header-container'>
                         <h3 className='column-title'>{props.title}</h3>
-                        <input 
-                            className='column-showall' 
-                            type='checkbox'
-                            checked={showAll}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                setShowAll(!showAll)
-                            }}/>
+                        <div className='column-showall-container'>
+                            <input 
+                                className='column-showall' 
+                                type='checkbox'
+                                id='all'
+                                checked={showAll}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                    setShowAll(!showAll)
+                                }}/>
+                            <label className='column-showall-label' htmlFor='all'>All</label>
+                        </div>
+                        
                     </div>
                     {
                         props.tickets?.map( ticket => {

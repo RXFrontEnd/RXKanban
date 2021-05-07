@@ -2,6 +2,7 @@ import { gql, useMutation } from "@apollo/client";
 import { Mutations, MutationsCreateUserArgs } from '../../models/type';
 import { appStateVar } from '../../apollo/cache';
 import { AppState } from "../../models/locatType";
+import { generateKey } from "../../apollo";
 
 const CREATE_USER = gql`
   mutation CreateUser($user: UserInput!) {
@@ -40,7 +41,8 @@ export function useCreateUser(){
                   appState.userName = user.firstName.concat(user.lastName);
                   appState.email = user.email;
                   // save userId to localstorage
-                  localStorage.setItem(user.email, appState.userId);
+                  
+                  localStorage.setItem(generateKey(user.email), appState.userId);
                 }
                 appStateVar(appState);
 

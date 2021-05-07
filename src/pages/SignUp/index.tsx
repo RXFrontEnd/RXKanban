@@ -6,6 +6,7 @@ import { UserInput } from '../../models/type';
 import Header from '../../components/Header'
 import { appStateVar } from '../../apollo/cache';
 import { AppState } from '../../models/locatType';
+import { generateKey } from '../../apollo';
 
 function SignUp() {
     const [user, setUser] = useState<UserInput>({} as UserInput);
@@ -15,7 +16,7 @@ function SignUp() {
 
     const handleClick = async () => {
         let userData = null;
-        const id = localStorage.getItem(user.email);
+        const id = localStorage.getItem(generateKey(user.email));
         if(id){
             const curState = appStateVar();
             userData = appStateVar({
@@ -33,7 +34,7 @@ function SignUp() {
         }
         if(userData){
             const curState = appStateVar();
-            const oId = localStorage.getItem(user.email.concat(organisation));
+            const oId = localStorage.getItem(generateKey(user.email.concat(organisation)));
             if(oId){
                 appStateVar({
                     ...curState,

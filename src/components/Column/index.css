@@ -21,6 +21,18 @@
     flex:1;
 }
 
+.column-showall-container{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
 .column-showall{
     width: 20px;
+}
+.column-showall-label{
+    width: fit-content;
+    font-size: small;
+    font-weight: bold;
+    color:navy;
 }

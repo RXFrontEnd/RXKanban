@@ -2,6 +2,7 @@ import { gql, useMutation } from "@apollo/client";
 import { Mutations, MutationsCreateOrganisationArgs } from "../../models/type";
 import { appStateVar } from '../../apollo/cache';
 import { AppState } from "../../models/locatType";
+import { generateKey } from "../../apollo";
 
 const REGISTER_ORGANISATION = gql`
 mutation createOrganisation($name: String!, $timezone: Timezone!) {
@@ -34,7 +35,8 @@ export function useRegisterOrganisation(){
                 appStateVar(appState);
                 
                 // save userId to localstorage
-                localStorage.setItem(appState.email.concat(appState.orgName), appState.orgId);
+                
+                localStorage.setItem(generateKey(appState.email.concat(appState.orgName)), appState.orgId);
             }
         }
       );
