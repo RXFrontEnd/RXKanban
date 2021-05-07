@@ -53,11 +53,10 @@ function SignUp() {
         }
         
     }
-    // if(error){
-    //     console.log(error);
-    // }
+    userError && alert(userError.message);
+    organisationError && alert(organisationError.message);
     if(userLoading || organisationLoading) {
-        return <div>Signing up {user.firstName}, please waiting...</div>
+        return <div className='signup-waiting'>Signing up {user.firstName} to {organisation}, please waiting...</div>
     }
 
     return (

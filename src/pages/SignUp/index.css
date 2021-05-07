@@ -24,3 +24,9 @@ input {
     width: 28em;
     margin-top: 2em;
 }
+
+.signup-waiting{
+    width: 100%;
+    height: 100vh;
+    line-height: 100vh;
+}
