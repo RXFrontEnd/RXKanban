@@ -16,7 +16,7 @@ export type ColumnProps = {
 
 function Column(props: ColumnProps) {
     const appState = appStateVar();
-    const {putTicket} = usePutTicket();
+    const {putTicket, ticketLoading} = usePutTicket();
     const handleAdd = (name:string, description?:string) => putTicket(
                 {
                     variables: {
@@ -43,7 +43,7 @@ function Column(props: ColumnProps) {
         }
     );
 
-    const {deleteTicket} = useDeleteTicket();
+    const {deleteTicket, deleteTicketLoading} = useDeleteTicket();
     const handleDelete = (id:string) => deleteTicket(
         {
             variables: {
@@ -59,7 +59,7 @@ function Column(props: ColumnProps) {
         <div 
             className='column-container' 
             style={{backgroundColor: props.bgColor}}>
-                <div>
+            <div>
                     <div className='column-header-container'>
                         <h3 className='column-title'>{props.title}</h3>
                         <div className='column-showall-container'>
@@ -94,9 +94,8 @@ function Column(props: ColumnProps) {
                         })
                     }
                 </div>
-            
-            
             {props.allowAdd ? <AddTicket handleAdd={handleAdd} /> : <></>}
+            {ticketLoading || deleteTicketLoading ? <div className='column-waiting'>please waiting</div> : <></>}
         </div>
     )
 }

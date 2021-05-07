@@ -25,14 +25,16 @@ function TicketItem(props: TicketItemProps) {
 
     const {handleDelete, handleUpdate} = props;
 
-    const handleClickForDelete = () => {
+    const handleClickForDelete = (event: React.MouseEvent) => {
+        event.stopPropagation();
         if(!handleDelete){
             return;
         }
         handleDelete(props.id);
     }
 
-    const handleClickForEdit = () => {
+    const handleClickForEdit = (event: React.MouseEvent) => {
+        event.stopPropagation();
         setIsEdit(true);
     }
 
