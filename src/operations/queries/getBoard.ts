@@ -13,6 +13,7 @@ export const GET_BOARD = gql`
       name
       description
       status
+      visible
     }  
   }
 }`;

@@ -31,7 +31,7 @@ function AddTicket(props: AddTicketProps) {
         <div className='add-ticket-container'>
             <input 
                 className='add-ticket-name' 
-                placeholder='Name' 
+                placeholder='Name'
                 onChange={
                     (e: React.ChangeEvent<HTMLInputElement>) => {
                         ticket.name = e.target.value;

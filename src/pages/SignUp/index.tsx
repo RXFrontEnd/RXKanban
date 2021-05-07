@@ -16,7 +16,6 @@ function SignUp() {
     const handleClick = async () => {
         let userData = null;
         const id = localStorage.getItem(user.email);
-        debugger;
         if(id){
             const curState = appStateVar();
             userData = appStateVar({
