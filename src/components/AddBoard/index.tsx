@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import './index.css';
-import { FetchResult } from '@apollo/client';
-import { Mutations } from '../../models/type';
 
 export type AddBoardProps = {
-    handleSubmit: (name:string) => Promise<FetchResult<Mutations, Record<string, any>, Record<string, any>>>
+    doCreateBoard: (name: string) => void;
 }
 
-function AddBoard(props: AddBoardProps) {
+function AddBoard({doCreateBoard}: AddBoardProps) {
 
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [name, setName] = useState<string>('');
@@ -21,12 +19,12 @@ function AddBoard(props: AddBoardProps) {
     }
 
     const handleClickForSubmit = async () => {
-        const result = await props.handleSubmit(name);
-
-        if(result.data){
-            setIsEdit(false);
-            setName('');
+        if(!name){
+            alert('name cannot be empty')
         }
+        doCreateBoard(name);
+        setIsEdit(false);
+        setName('');
     }
 
     return (
