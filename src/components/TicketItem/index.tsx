@@ -47,7 +47,6 @@ function TicketItem(props: TicketItemProps) {
         if(!props.error){
             setIsEdit(false);
         }
-        
     }
 
     return (

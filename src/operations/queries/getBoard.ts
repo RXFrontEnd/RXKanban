@@ -14,6 +14,7 @@ export const GET_BOARD = gql`
       description
       status
       visible
+      createdAt
     }  
   }
 }`;
