@@ -1,0 +1,59 @@
+.ticket-item-edit-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 2px;
+    background-color: #fff;
+    margin: 10px 5px;
+    height: 7.5rem;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.ticket-item-edit{
+    box-sizing: border-box;
+    margin: 0;
+    width: 100%;
+    height: 80%;
+    border: none;
+ }
+ .ticket-item-input-name{
+     background: #77424242;
+ }
+
+ .ticket-item-input-description {
+    background: #77424242;
+    grid-column: 2 / 4;
+    border: none;
+ }
+
+ .ticket-item-edit-visible-container{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+ }
+
+ .ticket-item-edit-visible{
+     width: 20px;
+     height: 20px;
+     margin: 5px;
+ }
+
+ .ticket-item-edit-button{
+    
+    border: none;
+    background: none;
+ }
+
+ .red-button {
+     color:red
+ }
+
+ .green-button {
+    color: green;
+ }

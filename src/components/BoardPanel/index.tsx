@@ -5,7 +5,7 @@ import './index.css';
 import Overlay from '../../components/Overlay'
 
 interface BoardPanelProps {
-    boards?: Board[];
+    boards: Board[];
     doCreateBoard: (name: string) => void;
     error?: string;
     loading: boolean;
@@ -14,7 +14,6 @@ interface BoardPanelProps {
 function BoardPanel({boards, doCreateBoard, error, loading}: BoardPanelProps) {
 
     error && alert(error);
-    
     return (
         <div className='board-container'>
             {

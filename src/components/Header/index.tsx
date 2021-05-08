@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 
 import {appStateVar} from '../../apollo/cache'
-import { AppState } from '../../models/locatType';
+import { AppState } from '../../models/localType';
 
 export type HeaderProps = {
     title: string;

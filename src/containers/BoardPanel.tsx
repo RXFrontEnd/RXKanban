@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import BoardPanel from "../components/BoardPanel";
-import { Query } from "../models/type";
+import { Board, Query } from "../models/type";
 import { usePutBoard } from "../operations/mutations/putBoard";
 import { GET_ORGANISATION } from "../operations/queries/getOrganisation";
 
@@ -31,8 +31,11 @@ const Container = ({organisation} : BoardPanelProps) => {
         }
     };
 
+    const sortedData = boardData && boardData.organisation && [...boardData.organisation.boards];
+    sortedData?.sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt));
+
     return <BoardPanel 
-                boards={boardData?.organisation?.boards}  
+                boards={sortedData as Board[]}  
                 doCreateBoard={doCreateBoard}
                 error={
                     (organisationError && organisationError.message)

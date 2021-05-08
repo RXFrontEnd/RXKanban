@@ -12,6 +12,7 @@ export const GET_ORGANISATION = gql`
     boards {
       id
       name
+      createdAt
     }
     
   }

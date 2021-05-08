@@ -2,7 +2,7 @@
  * Define Cache for all kinds of states
 */
 import { InMemoryCache, makeVar } from '@apollo/client';
-import { AppState } from '../models/locatType';
+import { AppState } from '../models/localType';
 
 export const cache: InMemoryCache = new InMemoryCache({
     typePolicies: {

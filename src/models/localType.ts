@@ -16,5 +16,14 @@ export type LocalQueries = {
     appState: AppState;
 }
 
+export interface TicketProps {
+    id: string;
+    name: string;
+    description?: string;
+    status: string;
+    visible: boolean;
+    error?: string;
+}
+
 
 

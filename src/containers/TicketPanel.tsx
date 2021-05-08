@@ -1,7 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { debug } from 'node:console';
-import React from 'react'
-import Column from '../components/Column';
+import Column from './Column';
 import { Query, TicketStatus } from '../models/type';
 import { GET_BOARD } from '../operations/queries/getBoard';
 
@@ -43,7 +41,7 @@ function Container({organisation, board}: TicketPanelProps) {
     error && alert(error.message);
     // sort
     const sortedData = data && data.board && [...data.board.tickets];
-    sortedData && sortedData.sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt));
+    sortedData?.sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt));
 
     return (
         <div style={{display:'flex', height:'82vh'}}>

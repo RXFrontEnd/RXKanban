@@ -10,10 +10,7 @@ export type AddTicketProps = {
 function AddTicket(props: AddTicketProps) {
     const {handleAdd, error} = props;
     
-    const [ticket, setTicket] = useState<TicketInput>(
-        {
-        } as TicketInput
-    );
+    const [ticket, setTicket] = useState<TicketInput>({} as TicketInput);
 
     const refName = useRef<HTMLInputElement>(null);
     const refDescription = useRef<HTMLInputElement>(null);

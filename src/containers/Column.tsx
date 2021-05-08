@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import './index.css';
-import AddTicket from '../../components/AddTicket';
-import { Ticket, TicketInput, TicketStatus } from '../../models/type';
-import TicketItem from '../../components/TicketItem';
-import { usePutTicket } from '../../operations/mutations/putTicket';
-import { useDeleteTicket } from '../../operations/mutations/deleteTicket';
-import Overlay from '../../components/Overlay';
+import AddTicket from '../components/AddTicket';
+import { Ticket, TicketInput, TicketStatus } from '../models/type';
+import TicketItem from './TicketItem';
+import { usePutTicket } from '../operations/mutations/putTicket';
+import { useDeleteTicket } from '../operations/mutations/deleteTicket';
+import Overlay from '../components/Overlay';
+import ColumnHeader from '../components/ColumnHeader';
 
 export type ColumnProps = {
     bgColor? : string;
@@ -81,24 +81,12 @@ function Column(props: ColumnProps) {
     
     return (
         <div 
-            className='column-container' 
-            style={{backgroundColor: props.bgColor}}>
+            style={{...containerStyle, backgroundColor: props.bgColor}} >
             <div>
-                    <div className='column-header-container'>
-                        <h3 className='column-title'>{props.title}</h3>
-                        <div className='column-showall-container'>
-                            <input 
-                                className='column-showall' 
-                                type='checkbox'
-                                id='all'
-                                checked={showAll}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                    setShowAll(!showAll)
-                                }}/>
-                            <label className='column-showall-label' htmlFor='all'>All</label>
-                        </div>
-                        
-                    </div>
+                    <ColumnHeader 
+                        title={props.title}
+                        showAll={showAll}
+                        handleChange={() => setShowAll(!showAll)} />
                     {
                         props.tickets?.map( ticket => {
                             if(showAll || ticket.visible){
@@ -126,6 +114,17 @@ function Column(props: ColumnProps) {
             {props.loading || ticketLoading || deleteTicketLoading ? <Overlay message='please waiting...' /> : <></>}
         </div>
     )
+}
+const containerStyle = {
+    position: 'relative' as 'relative',
+    display: 'flex',
+    flex: 1,
+    'flex-direction': 'column',
+    'justify-content': 'space-between',
+    height: '100%',
+    margin: '10px',
+    'box-sizing': 'border-box',
+    overflow:'auto'
 }
 
 export default Column

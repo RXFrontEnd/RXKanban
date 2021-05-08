@@ -1,15 +1,3 @@
-.column-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    height: 100%;
-    margin: 10px;
-    justify-content: space-between;
-    box-sizing: border-box;
-    overflow:auto;
-}
-
 .column-header-container{
     display: flex;
     background: #66666699;

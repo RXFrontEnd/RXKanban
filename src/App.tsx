@@ -5,7 +5,7 @@ import SignUp from './pages/SignUp';
 import Board from './pages/Board';
 import Ticket from './pages/Ticket';
 import { GET_APP_STATE } from './operations/queries/appState';
-import { LocalQueries } from './models/locatType';
+import { LocalQueries } from './models/localType';
 
 function App() {
   const { loading, error, data} = useQuery<LocalQueries>(GET_APP_STATE);
