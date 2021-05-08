@@ -1,17 +1,9 @@
-# Board - Ticket
-Any problem, please email me: <mark>***hitxcl@gmail.com***</mark>
-
-![Sign Up Page](imgs/signup-page.png)
-![Board Page](imgs/board-page.png)
-![Ticket Page](imgs/ticket-page.png)
-
-## Project Structure
-
-```
 .
 ├── README.md
 ├── imgs
+│   ├── board-page-1.png
 │   ├── board-page.png
+│   ├── signup-page-1.png
 │   ├── signup-page.png
 │   └── ticket-page.png
 ├── package-lock.json
@@ -24,15 +16,15 @@ Any problem, please email me: <mark>***hitxcl@gmail.com***</mark>
 │   ├── manifest.json
 │   ├── reset.css
 │   └── robots.txt
-├── schema.gql                    // Generated AWS Api gateway schema
+├── schema.gql
 ├── src
 │   ├── App.css
 │   ├── App.test.tsx
 │   ├── App.tsx
-│   ├── apollo                    // Apollo client initialization
+│   ├── apollo
 │   │   ├── cache.ts
 │   │   └── index.ts
-│   ├── components                // Basic components
+│   ├── components
 │   │   ├── AddBoard
 │   │   │   ├── index.css
 │   │   │   └── index.tsx
@@ -60,17 +52,17 @@ Any problem, please email me: <mark>***hitxcl@gmail.com***</mark>
 │   │   └── UserForm
 │   │       ├── index.css
 │   │       └── index.tsx
-│   ├── containers              // Container components
+│   ├── containers
 │   │   ├── BoardPanel.tsx
 │   │   ├── TicketPanel.tsx
 │   │   └── UserForm.tsx
 │   ├── index.css
 │   ├── index.tsx
 │   ├── logo.svg
-│   ├── models                  // Model types: local & remote
+│   ├── models
 │   │   ├── locatType.ts
-│   │   └── type.ts             // Generated type from schema.gql
-│   ├── operations              // AWS Command & Query
+│   │   └── type.ts
+│   ├── operations
 │   │   ├── mutations
 │   │   │   ├── createUser.ts
 │   │   │   ├── deleteTicket.ts
@@ -81,7 +73,7 @@ Any problem, please email me: <mark>***hitxcl@gmail.com***</mark>
 │   │       ├── appState.ts
 │   │       ├── getBoard.ts
 │   │       └── getOrganisation.ts
-│   ├── pages                  // Page components
+│   ├── pages
 │   │   ├── Board.tsx
 │   │   ├── SignUp.tsx
 │   │   └── Ticket.tsx
@@ -89,59 +81,9 @@ Any problem, please email me: <mark>***hitxcl@gmail.com***</mark>
 │   ├── reportWebVitals.ts
 │   ├── setupTests.ts
 │   └── utils
-│       └── keyUtil.ts        // Generate key for Local Storage
+│       └── keyUtil.ts
 ├── tree.text
 ├── tsconfig.json
 └── yarn.lock
-```
 
-
-## Technology Stack
-
-[Apollo Client for React](https://www.apollographql.com/docs/react/)
-
-## Run Me
-In order to avoid polluting the given service & data, application could <mark>***run in different environment***</mark>. Run the following command if you didn't install dotenv-cli before.
-
-```
-> yarn global add dotenv-cli
-```
-### Run for Development
-All the operation will take effect in [Ryan-Dev](https://14g8921io8.execute-api.us-east-1.amazonaws.com/ryan-dev-ticket) environment
-
-```
-> yarn start:dev
-```
-
-### Run for Test
-All the operation will take effect in [Phocas-Given](https://14g8921io8.execute-api.us-east-1.amazonaws.com/ryan-dev-ticket) environment
-
-```
-> yarn start
-```
-
-## Notice
-* No responsive design, use <mark>***full screen in Chrome***</mark> for better UI presentation.
-* <mark>***No Unit Test***</mark> for this project, but most of the components are testable.
-
-* Modify schema of Query Board for easy implementing ticket deletion
-
-```
-query board($organisationId: ID!, $boardId: ID!) {
-  board(organisationId: $organisationId, boardId: $boardId) {
-    id
-    ...
-    tickets {
-      id      // add id here
-      name
-      ...
-    }  
-  }
-```
-
-* Refresh or GoBack operation will lead to <mark>***lose the current staus***</mark>, application will go to the Sign-Up page.
-
-## Conventions
-* Board Update & Deletion are not supported currently.
-* You can only create <mark>***todo-status tikets***</mark> by the understanding of each ticket should start its lifecycle at todo status.
-
+21 directories, 65 files
