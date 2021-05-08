@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { UserInput } from '../../models/type';
 import './index.css';
+import Overlay from '../../components/Overlay'
 
 interface UserFormProps {
     doSignUp: (user: UserInput, organisation: string) => void;
@@ -25,7 +26,7 @@ function UserForm({ doSignUp, loading, error }: UserFormProps) {
     }
     
     if(loading) {
-        return <div className='signup-waiting'>Signing up {user.firstName} to {organisation}, please waiting...</div>
+        return <Overlay message={`Signing up ${user.firstName} to ${organisation}, please waiting...`} />
     }
 
     error && alert(error);

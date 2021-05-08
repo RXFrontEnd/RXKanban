@@ -1,10 +1,9 @@
 import React, { useRef, useState } from 'react';
 import './index.css';
-import { Mutations, TicketInput } from '../../models/type';
-import { FetchResult } from '@apollo/client';
+import { TicketInput } from '../../models/type';
 
 export type AddTicketProps = {
-    handleAdd?: (name:string, description?: string) => Promise<FetchResult<Mutations, Record<string, any>, Record<string, any>>>
+    handleAdd?: (name:string, description?: string) => void
 }
 
 function AddTicket(props: AddTicketProps) {

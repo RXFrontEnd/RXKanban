@@ -1,7 +1,8 @@
-import { Board } from '../../models/type'
-import AddBoard from '../AddBoard'
-import BoardItem from '../BoardItem'
-import './index.css'
+import { Board } from '../../models/type';
+import AddBoard from '../AddBoard';
+import BoardItem from '../BoardItem';
+import './index.css';
+import Overlay from '../../components/Overlay'
 
 interface BoardPanelProps {
     boards?: Board[];
@@ -27,7 +28,7 @@ function BoardPanel({boards, doCreateBoard, error, loading}: BoardPanelProps) {
                         ))
                     }
                     <AddBoard doCreateBoard={doCreateBoard}/>
-                    {loading ? <div className='board-waiting'>please waiting...</div> : <></>}
+                    {loading ? <Overlay message='please waiting...'/> : <></>}
                 </>
                     
             }

@@ -19,14 +19,11 @@ function App() {
   }else{
     if(data){
       const {appState} = data;
-      console.log(appState)
       if(appState.isSignedUp()) {
         page = appState.currentBoardId ? <Ticket /> : <Board />;
       }
     }
   }
-  
-  
   
   return (
     <div className="App">

@@ -4,39 +4,45 @@ import AddTicket from '../../components/AddTicket';
 import { Ticket, TicketInput, TicketStatus } from '../../models/type';
 import TicketItem from '../../components/TicketItem';
 import { usePutTicket } from '../../operations/mutations/putTicket';
-import { appStateVar } from '../../apollo/cache';
 import { useDeleteTicket } from '../../operations/mutations/deleteTicket';
+import Overlay from '../../components/Overlay';
 
 export type ColumnProps = {
     bgColor? : string;
     title: string;
     allowAdd: boolean;
     tickets?: Ticket[];
+    organisation: string;
+    board: string;
+    loading: boolean;
 }
 
 function Column(props: ColumnProps) {
-    const appState = appStateVar();
+
+    const [showAll, setShowAll] = useState(false);
+
     const {putTicket, ticketLoading} = usePutTicket();
-    const handleAdd = (name:string, description?:string) => putTicket(
-                {
-                    variables: {
-                        organisationId: appState.orgId,
-                        boardId: appState.currentBoardId,
-                        input: {
-                            name,
-                            description,
-                            status: TicketStatus.Todo,
-                            visible: true
-                        }
-                    }
-                }
-            );
-    
-    const handleUpdate = (id:string, ticket: TicketInput) => putTicket(
+
+    const doAdd = (name:string, description?:string) => putTicket(
         {
             variables: {
-                organisationId: appState.orgId,
-                boardId: appState.currentBoardId,
+                organisationId: props.organisation,
+                boardId: props.board,
+                input: {
+                    name,
+                    description,
+                    status: TicketStatus.Todo,
+                    visible: true
+                }
+            }
+        }
+    );
+
+    const doUpdate = (id:string, ticket: TicketInput) => putTicket(
+        {
+            variables: {
+                organisationId: props.organisation,
+                boardId: props.board,
                 ticketId: id,
                 input: ticket
             }
@@ -44,16 +50,14 @@ function Column(props: ColumnProps) {
     );
 
     const {deleteTicket, deleteTicketLoading} = useDeleteTicket();
-    const handleDelete = (id:string) => deleteTicket(
+    const doDelete = (id:string) => deleteTicket(
         {
             variables: {
-                organisationId: appState.orgId,
+                organisationId: props.organisation,
                 ticketId:id
             }
         }
     );
-
-    const [showAll, setShowAll] = useState(false);
     
     return (
         <div 
@@ -85,8 +89,8 @@ function Column(props: ColumnProps) {
                                     description={ticket.description}
                                     status={ticket.status}
                                     visible={ticket.visible}
-                                    handleDelete={handleDelete}
-                                    handleUpdate={handleUpdate}
+                                    handleDelete={doDelete}
+                                    handleUpdate={doUpdate}
                                 />)
                             }else{
                                 return '';
@@ -94,17 +98,10 @@ function Column(props: ColumnProps) {
                         })
                     }
                 </div>
-            {props.allowAdd ? <AddTicket handleAdd={handleAdd} /> : <></>}
-            {ticketLoading || deleteTicketLoading ? <div className='column-waiting'>please waiting</div> : <></>}
+            {props.allowAdd ? <AddTicket handleAdd={doAdd} /> : <></>}
+            {props.loading || ticketLoading || deleteTicketLoading ? <Overlay message='please waiting...' /> : <></>}
         </div>
     )
-}
-
-Column.defaultProps = {
-    allowAdd: false,
-    tickets: [
-        
-    ]
 }
 
 export default Column

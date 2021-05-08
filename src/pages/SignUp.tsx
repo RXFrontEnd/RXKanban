@@ -9,7 +9,6 @@ function SignUp() {
             <Header title='RXTicket - Sign Up'/>
             <UserForm />
         </>
-        
     )
 }
 

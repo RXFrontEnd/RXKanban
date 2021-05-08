@@ -1,6 +1,5 @@
-import { FetchResult } from '@apollo/client';
 import React, { useState } from 'react';
-import { Mutations, TicketInput, TicketStatus } from '../../models/type';
+import { TicketInput, TicketStatus } from '../../models/type';
 import './index.css';
 
 export type TicketItemProps = {
@@ -9,8 +8,8 @@ export type TicketItemProps = {
     description?: string;
     status: string;
     visible: boolean;
-    handleDelete?: (id: string) => Promise<FetchResult<Mutations, Record<string, any>, Record<string, any>>>;
-    handleUpdate?: (id: string, ticket: TicketInput) => Promise<FetchResult<Mutations, Record<string, any>, Record<string, any>>>;
+    handleDelete?: (id: string) => void;
+    handleUpdate?: (id: string, ticket: TicketInput) => void;
 }
 
 function TicketItem(props: TicketItemProps) {
