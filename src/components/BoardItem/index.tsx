@@ -11,10 +11,8 @@ function BoardItem(props: BoardItemProps) {
     
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
-        const appState = {...appStateVar() };
-        appState.currentBoardId = props.id;
-        appState.currentBoardName = props.name;
-        appStateVar(appState);
+        const appState = appStateVar();
+        appStateVar({...appState, currentBoardId: props.id, currentBoardName: props.name});
     }
 
     return (

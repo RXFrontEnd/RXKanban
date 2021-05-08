@@ -21,43 +21,63 @@ function Column(props: ColumnProps) {
 
     const [showAll, setShowAll] = useState(false);
 
-    const {putTicket, ticketLoading} = usePutTicket();
+    const {putTicket, ticketLoading, ticketError} = usePutTicket();
 
-    const doAdd = (name:string, description?:string) => putTicket(
-        {
-            variables: {
-                organisationId: props.organisation,
-                boardId: props.board,
-                input: {
-                    name,
-                    description,
-                    status: TicketStatus.Todo,
-                    visible: true
+    const doAdd = async (name:string, description?:string) => {
+        try {
+            await putTicket({
+                variables: {
+                    organisationId: props.organisation,
+                    boardId: props.board,
+                    input: {
+                        name,
+                        description,
+                        status: TicketStatus.Todo,
+                        visible: true
+                    }
                 }
-            }
+            });
+        } catch (error) {
+            console.log(error);
         }
-    );
+        
+    };
 
-    const doUpdate = (id:string, ticket: TicketInput) => putTicket(
-        {
-            variables: {
-                organisationId: props.organisation,
-                boardId: props.board,
-                ticketId: id,
-                input: ticket
-            }
+    const doUpdate = async (id:string, ticket: TicketInput) => {
+        try {
+            await putTicket(
+                {
+                    variables: {
+                        organisationId: props.organisation,
+                        boardId: props.board,
+                        ticketId: id,
+                        input: ticket
+                    }
+                }
+            );
+        } catch (error) {
+            console.log(error);
         }
-    );
+    };
 
-    const {deleteTicket, deleteTicketLoading} = useDeleteTicket();
-    const doDelete = (id:string) => deleteTicket(
-        {
-            variables: {
-                organisationId: props.organisation,
-                ticketId:id
-            }
+    const {deleteTicket, deleteTicketLoading, deleteTicketError} = useDeleteTicket();
+    const doDelete = async (id:string) => {
+        try {
+            await deleteTicket(
+                {
+                    variables: {
+                        organisationId: props.organisation,
+                        ticketId:id
+                    }
+                }
+            );
+        } catch (error) {
+            console.log(error);
         }
-    );
+    };
+
+    ticketError && alert(ticketError.message);
+    deleteTicketError && alert(deleteTicketError.message);
     
     return (
         <div 
@@ -91,14 +111,18 @@ function Column(props: ColumnProps) {
                                     visible={ticket.visible}
                                     handleDelete={doDelete}
                                     handleUpdate={doUpdate}
+                                    error={
+                                        (ticketError && ticketError.message)
+                                        || (deleteTicketError && deleteTicketError.message)
+                                    }
                                 />)
                             }else{
-                                return '';
+                                return <></>;
                             }
                         })
                     }
                 </div>
-            {props.allowAdd ? <AddTicket handleAdd={doAdd} /> : <></>}
+            {props.allowAdd ? <AddTicket handleAdd={doAdd} error={ticketError && ticketError.message} /> : <></>}
             {props.loading || ticketLoading || deleteTicketLoading ? <Overlay message='please waiting...' /> : <></>}
         </div>
     )

@@ -10,6 +10,7 @@ export type TicketItemProps = {
     visible: boolean;
     handleDelete?: (id: string) => void;
     handleUpdate?: (id: string, ticket: TicketInput) => void;
+    error?: string;
 }
 
 function TicketItem(props: TicketItemProps) {
@@ -42,8 +43,11 @@ function TicketItem(props: TicketItemProps) {
         if(!handleUpdate){
             return;
         }
-        await handleUpdate(props.id, ticket);
-        setIsEdit(false);
+        handleUpdate(props.id, ticket);
+        if(!props.error){
+            setIsEdit(false);
+        }
+        
     }
 
     return (

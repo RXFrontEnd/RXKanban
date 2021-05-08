@@ -3,9 +3,10 @@ import './index.css';
 
 export type AddBoardProps = {
     doCreateBoard: (name: string) => void;
+    error?: string;
 }
 
-function AddBoard({doCreateBoard}: AddBoardProps) {
+function AddBoard({doCreateBoard, error}: AddBoardProps) {
 
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [name, setName] = useState<string>('');
@@ -18,13 +19,15 @@ function AddBoard({doCreateBoard}: AddBoardProps) {
         setIsEdit(false);
     }
 
-    const handleClickForSubmit = async () => {
+    const handleClickForSubmit = () => {
         if(!name){
             alert('name cannot be empty')
         }
         doCreateBoard(name);
-        setIsEdit(false);
-        setName('');
+        if(!error){
+            setIsEdit(false);
+            setName('');
+        }
     }
 
     return (

@@ -27,7 +27,7 @@ function BoardPanel({boards, doCreateBoard, error, loading}: BoardPanelProps) {
                                 name={board.name}  />
                         ))
                     }
-                    <AddBoard doCreateBoard={doCreateBoard}/>
+                    <AddBoard doCreateBoard={doCreateBoard} error={error}/>
                     {loading ? <Overlay message='please waiting...'/> : <></>}
                 </>
                     

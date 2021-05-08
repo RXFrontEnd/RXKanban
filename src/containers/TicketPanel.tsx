@@ -31,12 +31,15 @@ const columns = [
 ]
 
 function Container({organisation, board}: TicketPanelProps) {
-    const { loading, data} = useQuery<Query>(GET_BOARD, {
+
+    const { loading, error, data} = useQuery<Query>(GET_BOARD, {
         variables: {
-            "organisationId": organisation,
-            "boardId": board
+            organisationId: organisation,
+            boardId: board
         }
     });
+
+    error && alert(error.message);
 
     return (
         <div style={{display:'flex', height:'82vh'}}>

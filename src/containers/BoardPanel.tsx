@@ -16,14 +16,20 @@ const Container = ({organisation} : BoardPanelProps) => {
     });
 
     const { putBoard, boardLoading, boardError } = usePutBoard();
-    const doCreateBoard = (name: string) => putBoard({
-        variables: {
-            organisationId: organisation,
-            input: {
-                name: name
-            }  
+    const doCreateBoard = async (name: string) => {
+        try {
+            await putBoard({
+                variables: {
+                    organisationId: organisation,
+                    input: {
+                        name: name
+                    }  
+                }
+            })
+        } catch (error) {
+            console.log(error);
         }
-    });
+    };
 
     return <BoardPanel 
                 boards={boardData?.organisation?.boards}  

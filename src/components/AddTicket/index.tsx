@@ -3,11 +3,12 @@ import './index.css';
 import { TicketInput } from '../../models/type';
 
 export type AddTicketProps = {
-    handleAdd?: (name:string, description?: string) => void
+    handleAdd?: (name:string, description?: string) => void;
+    error?: string;
 }
 
 function AddTicket(props: AddTicketProps) {
-    const {handleAdd} = props;
+    const {handleAdd, error} = props;
     
     const [ticket, setTicket] = useState<TicketInput>(
         {
@@ -29,10 +30,13 @@ function AddTicket(props: AddTicketProps) {
 
         handleAdd(ticket.name, ticket.description ? ticket.description : '');
 
-        // reset
-        refName.current && (refName.current.value = '');
-        refDescription.current && (refDescription.current.value = '');
-        setTicket({} as TicketInput);
+        if(!error){
+            // reset
+            refName.current && (refName.current.value = '');
+            refDescription.current && (refDescription.current.value = '');
+            setTicket({});
+        }
+        
     }
 
     return (
