@@ -1,8 +1,7 @@
 import React from 'react';
 import './index.css';
 
-import {appStateVar} from '../../apollo/cache'
-import { AppState } from '../../models/localType';
+import { clearAppState } from '../../utils/appStateStore';
 
 export type HeaderProps = {
     title: string;
@@ -13,13 +12,7 @@ export type HeaderProps = {
 function Header(props: HeaderProps) {
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        appStateVar({
-            userId:'',
-            orgId:'',
-            currentBoardId:'',
-            currentBoardName:'',
-            isSignedUp: function(){ return !!this.userId && !! this.orgId}} as AppState
-        );
+        clearAppState();
     }
     return (
         <div className='header-container' >

@@ -12,6 +12,16 @@ export type AppState = {
     currentBoardName: string;
 }
 
+export interface AppStateInput {
+    userId?: string;
+    userName?: string;
+    email?: string;
+    orgId?: string;
+    orgName?: string;
+    currentBoardId?: string;
+    currentBoardName?: string;
+}
+
 export type LocalQueries = {
     appState: AppState;
 }

@@ -3,6 +3,7 @@
 */
 import { InMemoryCache, makeVar } from '@apollo/client';
 import { AppState } from '../models/localType';
+import { APP_KEY } from '../utils/constant';
 
 export const cache: InMemoryCache = new InMemoryCache({
     typePolicies: {
@@ -18,10 +19,13 @@ export const cache: InMemoryCache = new InMemoryCache({
     }
 });
 
+const currentState: AppState = {
+    ...JSON.parse(localStorage.getItem(APP_KEY) || '{}'),
+    isSignedUp: function(){ return !!this.userId && !! this.orgId}
+} as AppState;
+
 export const appStateVar = makeVar<AppState>(
-    { 
-        isSignedUp: function(){ return !!this.userId && !! this.orgId}
-    } as AppState
+    currentState
 );
 
 

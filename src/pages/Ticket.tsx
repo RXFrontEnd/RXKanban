@@ -2,12 +2,13 @@ import React from 'react'
 import { appStateVar } from '../apollo/cache';
 import Header from '../components/Header';
 import TicketPanel from '../containers/TicketPanel';
+import { updateAppState } from '../utils/appStateStore';
 
 function Ticket() {
     const appState = appStateVar();
     const handleClick = (e: React.MouseEvent<HTMLHeadingElement>) => {
         e.stopPropagation();
-        appStateVar({...appState, currentBoardId:'', currentBoardName: ''});
+        updateAppState({currentBoardId:'', currentBoardName: ''})
     }
     return (
         <>

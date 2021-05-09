@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, KeyboardEvent } from 'react';
 import './index.css';
 import { TicketInput } from '../../models/type';
 
@@ -32,7 +32,13 @@ function AddTicket(props: AddTicketProps) {
             refDescription.current && (refDescription.current.value = '');
             setTicket({});
         }
-        
+    }
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>)=>{
+        e.stopPropagation();
+        if (e.key === 'Enter') {
+            handleClick();
+        }
     }
 
     return (
@@ -45,7 +51,8 @@ function AddTicket(props: AddTicketProps) {
                     (e: React.ChangeEvent<HTMLInputElement>) => {
                         setTicket({...ticket, name: e.target.value});
                     }
-                } />
+                }
+                onKeyDown={handleKeyDown} />
             <input
                 ref={refDescription}
                 className='add-ticket-description' 
@@ -54,7 +61,8 @@ function AddTicket(props: AddTicketProps) {
                     (e: React.ChangeEvent<HTMLInputElement>) => {
                         setTicket({...ticket, description: e.target.value});
                     }
-                }  />
+                }
+                onKeyDown={handleKeyDown}  />
             <span className='add-ticket-submit' onClick={handleClick}>+</span>
         </div>
     )

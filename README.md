@@ -81,7 +81,7 @@ All the operation will take effect in [Phocas-Given](https://14g8921io8.execute-
 ## Notice
 * No responsive design, use <mark>***full screen in Chrome***</mark> for better UI presentation.
 * <mark>***No Unit Test***</mark> for this project, but most of the components are testable.
-* Refresh or GoBack operation will lead to <mark>***lose the current staus***</mark>, application will go to the Sign-Up page.
+
 
 ## Conventions
 * Board Update & Deletion are not supported currently.

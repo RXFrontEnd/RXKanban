@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { KeyboardEvent, useState } from 'react';
 import './index.css';
 
 export type AddBoardProps = {
@@ -30,6 +30,13 @@ function AddBoard({doCreateBoard}: AddBoardProps) {
         }
     }
 
+    const handleKeyDown = (e:KeyboardEvent<HTMLTextAreaElement>)=>{
+        e.stopPropagation();
+		if (e.key === 'Enter') {
+			handleClickForSubmit();
+		}
+	}
+
     return (
         <div className='add-board-container'>
             {isEdit ? 
@@ -43,8 +50,11 @@ function AddBoard({doCreateBoard}: AddBoardProps) {
                         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                             setName(e.target.value);
                         }} 
+                        onKeyDown={handleKeyDown}
                     />
-                    <button className='add-board-submit' onClick={handleClickForSubmit}>
+                    <button 
+                        className='add-board-submit' 
+                        onClick={handleClickForSubmit}>
                         Submit
                     </button>
                 </>

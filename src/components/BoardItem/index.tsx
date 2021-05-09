@@ -1,5 +1,5 @@
 import React from 'react';
-import { appStateVar } from '../../apollo/cache';
+import { updateAppState } from '../../utils/appStateStore';
 import './index.css';
 
 export type BoardItemProps = {
@@ -11,8 +11,7 @@ function BoardItem(props: BoardItemProps) {
     
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
-        const appState = appStateVar();
-        appStateVar({...appState, currentBoardId: props.id, currentBoardName: props.name});
+        updateAppState({currentBoardId: props.id, currentBoardName: props.name});
     }
 
     return (

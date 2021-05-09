@@ -1,11 +1,11 @@
 
-import { generateKey } from "../apollo";
 import { appStateVar } from "../apollo/cache";
 import UserForm from "../components/UserForm"
 import { AppState } from "../models/localType";
 import { UserInput } from "../models/type";
 import { useCreateUser } from "../operations/mutations/createUser";
 import { useRegisterOrganisation } from "../operations/mutations/registerOrganisation";
+import { generateKey } from "../utils/constant";
 
 /**
  * UserFrom container component: signup logic provider

@@ -1,8 +1,9 @@
 import { gql, useMutation } from "@apollo/client";
 import { Mutations, MutationsCreateUserArgs } from '../../models/type';
 import { appStateVar } from '../../apollo/cache';
-import { AppState } from "../../models/localType";
-import { generateKey } from "../../apollo";
+import { AppStateInput } from "../../models/localType";
+import { updateAppState } from "../../utils/appStateStore";
+import { generateKey } from "../../utils/constant";
 
 const CREATE_USER = gql`
   mutation CreateUser($user: UserInput!) {
@@ -37,14 +38,15 @@ export function useCreateUser(){
                 
                 const user = data?.createUser;
                 if(user){
-                  const appState = {...appStateVar()} as AppState;
+                  const appState = {...appStateVar()} as AppStateInput;
                   appState.userId = user.id;
                   appState.userName = user.firstName.concat(user.lastName);
                   appState.email = user.email;
                   // save userId to localstorage
                   
                   localStorage.setItem(generateKey(user.email), appState.userId);
-                  appStateVar(appState);
+                  updateAppState(appState);
+                  // appStateVar(appState);
                 }
                 
 
