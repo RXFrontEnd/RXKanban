@@ -8,7 +8,8 @@ interface OverlayProps {
 function Overlay(props: OverlayProps) {
     return (
         <div className='overlay' style={{backgroundColor: props.bgColor, color: props.textColor}}>
-            {props.message}
+            <p>{props.message}</p>
+            
         </div>
     )
 }
