@@ -25,9 +25,11 @@ const Container = ({organisation} : BoardPanelProps) => {
                         name: name
                     }  
                 }
-            })
+            });
+            return '';
         } catch (error) {
             console.log(error);
+            return error;
         }
     };
 

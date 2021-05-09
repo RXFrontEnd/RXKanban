@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import './index.css';
 
 export type AddBoardProps = {
-    doCreateBoard: (name: string) => void;
-    error?: string;
+    doCreateBoard: (name: string) => Promise<string>;
 }
 
-function AddBoard({doCreateBoard, error}: AddBoardProps) {
+function AddBoard({doCreateBoard}: AddBoardProps) {
 
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [name, setName] = useState<string>('');
@@ -19,11 +18,12 @@ function AddBoard({doCreateBoard, error}: AddBoardProps) {
         setIsEdit(false);
     }
 
-    const handleClickForSubmit = () => {
+    const handleClickForSubmit = async () => {
         if(!name){
-            alert('name cannot be empty')
+            alert('name cannot be empty');
+            return;
         }
-        doCreateBoard(name);
+        const error = await doCreateBoard(name);
         if(!error){
             setIsEdit(false);
             setName('');

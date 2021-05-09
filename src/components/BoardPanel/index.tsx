@@ -6,7 +6,7 @@ import Overlay from '../../components/Overlay'
 
 interface BoardPanelProps {
     boards: Board[];
-    doCreateBoard: (name: string) => void;
+    doCreateBoard: (name: string) => Promise<string>;
     error?: string;
     loading: boolean;
 }
@@ -26,7 +26,7 @@ function BoardPanel({boards, doCreateBoard, error, loading}: BoardPanelProps) {
                                 name={board.name}  />
                         ))
                     }
-                    <AddBoard doCreateBoard={doCreateBoard} error={error}/>
+                    <AddBoard doCreateBoard={doCreateBoard}/>
                     {loading ? <Overlay message='please waiting...'/> : <></>}
                 </>
                     
