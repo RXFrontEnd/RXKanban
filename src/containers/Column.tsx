@@ -37,8 +37,10 @@ function Column(props: ColumnProps) {
                     }
                 }
             });
+            return '';
         } catch (error) {
             console.log(error);
+            return error;
         }
         
     };
@@ -104,7 +106,7 @@ function Column(props: ColumnProps) {
                         })
                     }
                 </div>
-            {props.allowAdd ? <AddTicket handleAdd={doAdd} error={ticketError && ticketError.message} /> : <></>}
+            {props.allowAdd ? <AddTicket handleAdd={doAdd} /> : <></>}
             {props.loading || ticketLoading || deleteTicketLoading ? <Overlay message='please waiting...' /> : <></>}
         </div>
     )

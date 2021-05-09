@@ -3,19 +3,18 @@ import './index.css';
 import { TicketInput } from '../../models/type';
 
 export type AddTicketProps = {
-    handleAdd?: (name:string, description?: string) => void;
-    error?: string;
+    handleAdd?: (name:string, description?: string) => Promise<string>;
 }
 
 function AddTicket(props: AddTicketProps) {
-    const {handleAdd, error} = props;
+    const {handleAdd} = props;
     
     const [ticket, setTicket] = useState<TicketInput>({} as TicketInput);
 
     const refName = useRef<HTMLInputElement>(null);
     const refDescription = useRef<HTMLInputElement>(null);
 
-    const handleClick = () => {
+    const handleClick = async () => {
         // validation
         if(!handleAdd){
             return;
@@ -25,7 +24,7 @@ function AddTicket(props: AddTicketProps) {
             return;
         }
 
-        handleAdd(ticket.name, ticket.description ? ticket.description : '');
+        const error = await handleAdd(ticket.name, ticket.description ? ticket.description : '');
 
         if(!error){
             // reset
