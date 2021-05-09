@@ -5,14 +5,14 @@ import { TicketProps } from '../models/localType';
 import { TicketInput } from '../models/type';
 
 interface TicketItemContainerProps extends TicketProps {
-    handleUpdate: (id: string, ticket: TicketInput) => void;
+    handleUpdate: (id: string, ticket: TicketInput) => Promise<string>;
     handleDelete: (id: string) => void;
 }
 
 function Container(props: TicketItemContainerProps) {
     const { handleUpdate ,handleDelete, ...rest} = props;
     const [isEdit, setIsEdit] = useState(false);
-
+    
     const handleClickForEdit = (event: React.MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
         setIsEdit(true);
@@ -20,25 +20,23 @@ function Container(props: TicketItemContainerProps) {
 
     const handleClickForClose = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
-        setIsEdit(false)
+        setIsEdit(false);
     };
-
-    const callback = (operation: 'close'|'update') => {
+    const callback = (operation: 'close'|'update', error?: string) => {
         if(operation === 'update'){
-            setIsEdit(!!props.error);
+            setIsEdit(!!error);
         }
     }
-
     return (
         <>
         {
             isEdit ? 
                 <EditTicket
                     handleClose={handleClickForClose}
-                    handleUpdate={props.handleUpdate}
+                    handleUpdate={handleUpdate}
                     callBack={callback}
                     {...rest}
-                     /> 
+                        /> 
                 : <TicketItem
                     handleEdit={handleClickForEdit}
                     handleDelete={handleDelete}
@@ -46,6 +44,7 @@ function Container(props: TicketItemContainerProps) {
         }
         </>
     )
+    
 }
 
 export default Container;

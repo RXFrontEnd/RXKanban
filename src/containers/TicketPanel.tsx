@@ -47,6 +47,7 @@ function Container({organisation, board}: TicketPanelProps) {
         <div style={{display:'flex', height:'82vh'}}>
             {
                 columns.map(column => <Column
+                    key={column.title}
                     title={column.title} 
                     bgColor={column.bgColor} 
                     allowAdd={column.allowAdd}

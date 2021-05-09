@@ -3,7 +3,6 @@ import { hash } from '../utils/keyUtil';
 import { cache, appStateVar } from './cache';
 
 const apiUrl = process.env.REACT_APP_API_GATEWAY_URL?.concat(process.env.REACT_APP_API_GATEWAY_STAGE as string);
-console.log(apiUrl);
 const httpLink = new HttpLink(
     {
       uri: apiUrl

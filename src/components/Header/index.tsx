@@ -20,7 +20,6 @@ function Header(props: HeaderProps) {
             currentBoardName:'',
             isSignedUp: function(){ return !!this.userId && !! this.orgId}} as AppState
         );
-        console.log(appStateVar());
     }
     return (
         <div className='header-container' >

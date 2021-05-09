@@ -22,7 +22,6 @@ export interface TicketProps {
     description?: string;
     status: string;
     visible: boolean;
-    error?: string;
 }
 
 

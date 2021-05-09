@@ -42,7 +42,7 @@ function Column(props: ColumnProps) {
         }
         
     };
-
+ 
     const doUpdate = async (id:string, ticket: TicketInput) => {
         try {
             await putTicket(
@@ -55,8 +55,10 @@ function Column(props: ColumnProps) {
                     }
                 }
             );
+            return '';
         } catch (error) {
             console.log(error);
+            return error;
         }
     };
 
@@ -75,7 +77,7 @@ function Column(props: ColumnProps) {
             console.log(error);
         }
     };
-
+    
     ticketError && alert(ticketError.message);
     deleteTicketError && alert(deleteTicketError.message);
     
@@ -91,18 +93,10 @@ function Column(props: ColumnProps) {
                         props.tickets?.map( ticket => {
                             if(showAll || ticket.visible){
                                 return (<TicketItem 
-                                    key={ticket.id} 
-                                    id={ticket.id}
-                                    name={ticket.name}
-                                    description={ticket.description}
-                                    status={ticket.status}
-                                    visible={ticket.visible}
+                                    key={ticket.id}
+                                    {...ticket}
                                     handleDelete={doDelete}
                                     handleUpdate={doUpdate}
-                                    error={
-                                        (ticketError && ticketError.message)
-                                        || (deleteTicketError && deleteTicketError.message)
-                                    }
                                 />)
                             }else{
                                 return <></>;
@@ -119,11 +113,11 @@ const containerStyle = {
     position: 'relative' as 'relative',
     display: 'flex',
     flex: 1,
-    'flex-direction': 'column',
-    'justify-content': 'space-between',
+    flexDirection: 'column' as 'column',
+    justifyContent: 'space-between' as 'space-between',
+    boxSizing: 'border-box' as 'border-box',
     height: '100%',
     margin: '10px',
-    'box-sizing': 'border-box',
     overflow:'auto'
 }
 

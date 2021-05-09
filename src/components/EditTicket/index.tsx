@@ -4,24 +4,23 @@ import { TicketInput, TicketStatus } from '../../models/type';
 import './index.css';
 
 interface EditTicketProps extends TicketProps {
-    handleUpdate: (id: string, ticket: TicketInput) => void;
+    handleUpdate: (id: string, ticket: TicketInput) => Promise<string>;
     handleClose: (event: React.MouseEvent<HTMLButtonElement>) => void;
-    callBack: (operation: 'close'|'update') => void;
+    callBack: (operation: 'close'|'update', error?: string) => void;
 }
 
 function EditTicket(props: EditTicketProps) {
-
+    const { handleClose, handleUpdate, callBack, id } = props;
     const [ticket, setTicket] = useState({
         name: props.name,
         description: props.description,
-        status: props.status,
-        visible: props.visible
+        visible: props.visible,
+        status: props.status
     } as TicketInput);
 
     const handleClickForUpdate = async (event: React.MouseEvent) => {
         event.stopPropagation();
-        props.handleUpdate(props.id, ticket);
-        props.callBack('update');
+        callBack('update', await handleUpdate(id, ticket));
     }
 
     return (
@@ -43,22 +42,11 @@ function EditTicket(props: EditTicketProps) {
             <select className='ticket-item-edit' 
                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                         setTicket({...ticket, status: e.target.value as TicketStatus})
-                    }}>
-                <option 
-                    value={TicketStatus.Todo} 
-                    selected={ticket.status === TicketStatus.Todo}>
-                        Todo
-                </option>
-                <option 
-                    value={TicketStatus.Inprogress}
-                    selected={ticket.status === TicketStatus.Inprogress}>
-                        Inprogress
-                </option>
-                <option 
-                    value={TicketStatus.Done}
-                    selected={ticket.status === TicketStatus.Done}>
-                        Done
-                </option>
+                    }}
+                    defaultValue={ticket.status?.toUpperCase()}>
+                        {
+                            options.map(o => <option key={o.value} value={o.value}>{o.name}</option>)
+                        }
             </select>
             <div className='ticket-item-edit-visible-container'>
                 <input 
@@ -76,7 +64,7 @@ function EditTicket(props: EditTicketProps) {
                             Ok
                 </button>
                 <button className='ticket-item-edit-button red-button' 
-                        onClick={ props.handleClose }>
+                        onClick={ handleClose }>
                             Cancle
                 </button>
             </div>
@@ -84,5 +72,20 @@ function EditTicket(props: EditTicketProps) {
         </div>
     )
 }
+
+const options = [
+    {
+        value: TicketStatus.Todo,
+        name: TicketStatus.Todo.toUpperCase()
+    },
+    {
+        value: TicketStatus.Inprogress,
+        name: TicketStatus.Inprogress.toUpperCase()
+    },
+    {
+        value: TicketStatus.Done,
+        name: TicketStatus.Done.toUpperCase()
+    }
+];
 
 export default EditTicket;
