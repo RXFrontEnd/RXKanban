@@ -1,5 +1,4 @@
 # Board - Ticket
-Any problem, please email me: <mark>***hitxcl@gmail.com***</mark>
 
 ![Sign Up Page](imgs/signup-page.png)
 ![Board Page](imgs/board-page.png)
