@@ -2,8 +2,6 @@ import { appStateVar } from "../apollo/cache";
 import { AppState, AppStateInput } from "../models/localType";
 import { APP_KEY } from "./constant";
 
-
-
 export const updateAppState = (state: AppStateInput) => {
     const appState = {...appStateVar(), ...state};
     appStateVar(appState);

@@ -22,8 +22,7 @@
     "start": "dotenv -e .env react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "start:dev": "dotenv -e .env.development react-scripts start"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
