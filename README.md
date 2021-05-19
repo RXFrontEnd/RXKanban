@@ -22,13 +22,6 @@ All the operation will take effect in [Ryan-Dev](https://14g8921io8.execute-api.
 > yarn start:dev
 ```
 
-### Run for Test
-All the operation will take effect in [Phocas-Given](https://14g8921io8.execute-api.us-east-1.amazonaws.com/ryan-dev-ticket) environment
-
-```
-> yarn start
-```
-
 ## Notice
 * No responsive design, use <mark>***full screen in Chrome***</mark> for better UI presentation.
 * <mark>***No Unit Test***</mark> for this project, but most of the components are testable.
